@@ -11,11 +11,14 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -39,13 +42,18 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static android.app.DownloadManager.COLUMN_STATUS;
 import static android.app.DownloadManager.STATUS_RUNNING;
@@ -71,13 +79,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         links = new ArrayList<>();
         titles1 = new ArrayList<>();
+        getSupportActionBar().hide();
 
         verifyPermissions();
 
-        final Button convert = (Button) findViewById(R.id.convertbutton);
+        Button convert = (Button) findViewById(R.id.convertbutton);
 
 
-        //set filter to only when download is complete and register broadcast receiver
+
+       // set filter to only when download is complete and register broadcast receiver
         IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         registerReceiver(downloadReceiver, filter);
 
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         int permissionExt = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionInternet = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.INTERNET);
-        ;
+
 
 
         if (permissionExt != PackageManager.PERMISSION_GRANTED) {
@@ -117,31 +127,63 @@ public class MainActivity extends AppCompatActivity {
     private long DownloadData(Uri uri) {
 
         final long downloadReference;
+        final AtomicBoolean downloading = new AtomicBoolean(false);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.probar);
+        final TextView viewname = (TextView) findViewById(R.id.viewname);
+        final Button cancel = (Button) findViewById(R.id.buttoncancel);
+        cancel.setEnabled(false);
+
+
 
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
+        final DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
 
         //Setting title of request
-        request.setTitle(titles1.get(0));
+        request.setTitle("yumdownloading.mp3");
 
         //Setting description of request
         request.setDescription("");
 
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir((Environment.DIRECTORY_MUSIC), titles1.get(0) + ".mp3");
+        request.setDestinationInExternalPublicDir((Environment.DIRECTORY_MUSIC), "yum123.mp3");
+
 
 
         //Enqueue download and save the referenceId
         downloadReference = downloadManager.enqueue(request);
 
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.probar);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    downloading.set(false);
+                    downloadManager.remove(downloadReference);
+                    cancel.setEnabled(false);
+                    viewname.setText("Download Canceled");
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
+
+        viewname.setText(titles1.get(0));
+
+
+
+
 
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean downloading = true;
-                while (downloading) {
+                downloading.set(true);
+                cancel.setEnabled(true);
+                while (downloading.get()) {
+
                     DownloadManager.Query q = new DownloadManager.Query();
                     q.setFilterById(downloadReference);
                     Cursor c = downloadManager.query(q);
@@ -151,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     int bytes_total = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
 
                     if (c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
-                        downloading = false;
+                        downloading.set(false);
                     }
 
                     final int dl_progress = (int) ((bytes_downloaded * 100l) / bytes_total);
@@ -166,11 +208,22 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                 }
+                {
+                    progressBar.setProgress(0);
+                }
             }
         }).start();
 
+
+
+
+
+
         return downloadReference;
+
+
     }
+
 
 
 
@@ -181,20 +234,26 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             //check if the broadcast message is for our Enqueued download
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
             if (referenceId == Music_DownloadId) {
 
+                File file1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "yum123.mp3");
+                File file2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), titles1.get(0) + ".mp3");
+
+                file1.renameTo(file2);
+
                 Toast toast = Toast.makeText(MainActivity.this,
                         "Music Download Complete", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.TOP, 25, 400);
                 toast.show();
+
             }
 
         }
     };
+
 
 
 
