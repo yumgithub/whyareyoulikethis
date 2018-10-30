@@ -23,7 +23,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="71" />
+                                                <entry key="scalingPercent" value="102" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -35,7 +36,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/app/src/main/res/drawable/yumlogo.png" />
+                                      <entry key="foregroundImage" value="C:\Users\JB\Documents\Passerelle Informatik\Java\YuM\app\src\main\res\drawable\yumlogo.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
