@@ -1,10 +1,12 @@
-package com.project.jb.newyum;
+package com.project.jb.YuM;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.project.jb.YuM.R;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -37,5 +39,4 @@ public class SplashScreenActivity extends AppCompatActivity {
             SplashScreenActivity.this.finish();
         }
     }
-
 }

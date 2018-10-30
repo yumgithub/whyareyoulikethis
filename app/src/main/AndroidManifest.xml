@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.jb.newyum">
+    package="com.project.jb.YuM">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,14 +8,14 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application
-        android:name=".AppController"
+        android:name="com.project.jb.YuM.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="YuM"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.project.jb.YuM.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name="com.project.jb.YuM.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

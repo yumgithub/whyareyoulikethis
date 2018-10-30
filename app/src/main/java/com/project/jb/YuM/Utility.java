@@ -1,11 +1,9 @@
-package com.project.jb.newyum;
+package com.project.jb.YuM;
 
 import android.net.Uri;
 import android.util.Log;
 
 public class Utility {
-
-
 
     /**
      * Created by rajora_sd on 2/13/2017.
@@ -24,5 +22,4 @@ public class Utility {
         Log.e("LINK", myUrl);
         return  myUrl;
     }
-
 }

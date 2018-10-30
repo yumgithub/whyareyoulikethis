@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
 
 
     <EditText
@@ -15,7 +16,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -24,49 +25,50 @@
         android:hint="URL"
         android:inputType="textUri"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="24sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/convertbutton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.71000004" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/convertbutton"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="141dp"
-        android:layout_height="69dp"
+        android:layout_width="162dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="DOWNLOAD"
+        android:textColor="#FF2D00"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/probar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <ProgressBar
+        android:id="@+id/probar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="323dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="6dp"
-        android:text="DOWNLOAD"
-        android:textColor="#FF2D00"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
-
-    <ProgressBar
-        android:id="@+id/probar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="392dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convertbutton"
-        app:layout_constraintVertical_bias="0.23000002" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/viewname"
@@ -79,12 +81,15 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="top|center_horizontal"
-        android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/probar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttoncancel"
@@ -97,14 +102,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Cancel"
-        android:textColor="@android:color/darker_gray"
         android:enabled="false"
+        android:text="Cancel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewname"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

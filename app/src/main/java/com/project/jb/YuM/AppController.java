@@ -1,4 +1,4 @@
-package com.project.jb.newyum;
+package com.project.jb.YuM;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -11,7 +11,6 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by rajora_sd on 2/13/2017.
  */
-
 
 public class AppController extends Application {
 
